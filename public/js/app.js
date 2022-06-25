@@ -18,11 +18,20 @@ function handleItemsList() {
         let nodeDiv = document.createElement("div");
         nodeDiv.classList.add("pb-3", "mb-0", "small", "lh-sm", "border-bottom", "w-100");
 
+        // Criando e estilizando div
+        let nodeDivName = document.createElement("div");
+        nodeDivName.classList.add("d-flex", "justify-content-between");
+
         // Criando e estilizando strong do nome
         let nodeName = document.createElement("strong");
         let createTextName = document.createTextNode(element.name);
         nodeName.classList.add("text-gray-dark");
         nodeName.appendChild(createTextName);
+
+        // Criando e estilizando link de deletar
+        let nodeDeleteLink = document.createElement("a");
+        let createDeleteLink = document.createTextNode("Deletar");
+        nodeDeleteLink.appendChild(createDeleteLink);
 
         // Criando e estilizando span do email
         let nodeEmail = document.createElement("span");
@@ -37,7 +46,10 @@ function handleItemsList() {
         nodePassword.appendChild(createTextPassword);
 
         // Incorporando elementos
-        nodeDiv.appendChild(nodeName);
+        nodeDivName.appendChild(nodeName);
+        nodeDivName.appendChild(nodeDeleteLink);
+
+        nodeDiv.appendChild(nodeDivName);
         nodeDiv.appendChild(nodeEmail);
         nodeDiv.appendChild(nodePassword);
 
@@ -48,18 +60,25 @@ function handleItemsList() {
     });
 }
 
-function formOnSubmit(thisForm) {
+function createItem(thisForm) {
     const input_name = thisForm.inputName.value;
     const input_email = thisForm.inputEmail.value;
     const input_password = thisForm.inputPassword.value;
 
     let arr_form = {
+        "id": arr_storage.length + 1,
         "name": input_name,
         "email": input_email,
         "password": input_password,
     };
 
     arr_storage.push(arr_form);
+
+    handleItemsList();
+}
+
+function deleteItem() {
+
 
     handleItemsList();
 }
