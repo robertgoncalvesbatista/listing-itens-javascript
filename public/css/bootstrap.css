@@ -76,7 +76,6 @@
 }
 
 .body-gradient {
-  height: 100vh;
   background: linear-gradient(45deg, #f72585, #480ca8);
   background-repeat: no-repeat;
   background-size: cover;
@@ -96,6 +95,7 @@
 
 body {
   margin: 0;
+  height: 100vh;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
