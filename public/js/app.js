@@ -79,6 +79,5 @@ function createItem(thisForm) {
 
 function deleteItem() {
 
-
     handleItemsList();
 }
