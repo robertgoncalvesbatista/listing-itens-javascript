@@ -31,6 +31,7 @@ function handleItemsList() {
         // Criando e estilizando link de deletar
         let nodeDeleteLink = document.createElement("a");
         let createDeleteLink = document.createTextNode("Deletar");
+        nodeDeleteLink.href = `javascript:deleteItem(${element.id})`;
         nodeDeleteLink.appendChild(createDeleteLink);
 
         // Criando e estilizando span do email
@@ -58,6 +59,8 @@ function handleItemsList() {
 
         selectorDiv.appendChild(nodeCard);
     });
+
+    console.log(arr_storage);
 }
 
 function createItem(thisForm) {
@@ -77,7 +80,8 @@ function createItem(thisForm) {
     handleItemsList();
 }
 
-function deleteItem() {
+function deleteItem(itenId) {
+    delete arr_storage[itenId - 1];
 
     handleItemsList();
 }
