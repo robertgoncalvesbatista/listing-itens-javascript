@@ -1,87 +1,140 @@
-let arr_storage = [];
+let storage = [];
+let selected;
 
 function handleItemsList() {
-    let selectorDiv = document.querySelector("#cardGroup");
-    selectorDiv.innerHTML = "";
+  let cardGroupSelector = document.querySelector("#cardGroup");
+  cardGroupSelector.innerHTML = "";
 
-    arr_storage.forEach(element => {
-        // Criando e estilizando card
-        let nodeCard = document.createElement("div");
-        nodeCard.classList.add("d-flex", "text-muted", "pt-3");
+  storage.forEach((element) => {
+    // Criando e estilizando card
+    let nodeCard = document.createElement("div");
+    nodeCard.style.cssText = "width: 100%; margin: 0 auto";
+    nodeCard.classList.add("d-flex", "text-muted", "pt-3", "border-bottom");
 
-        // Criando e estilizando quadrado azul
-        let nodeSquare = document.createElement("div");
-        nodeSquare.style.cssText = "width: 32px; height: 32px;";
-        nodeSquare.classList.add("bd-placeholder-img", "flex-shrink-0", "me-2", "rounded", "text-bg-primary");
+    // Criando e estilizando quadrado azul
+    let nodeSquare = document.createElement("div");
+    nodeSquare.style.cssText = "max-width: 32px; height: 32px; width: 100%";
+    nodeSquare.classList.add(
+      "bd-placeholder-img",
+      "rounded",
+      "text-bg-primary"
+    );
 
-        // Criando e estilizando div
-        let nodeDiv = document.createElement("div");
-        nodeDiv.classList.add("pb-3", "mb-0", "small", "lh-sm", "border-bottom", "w-100");
+    // Criando e estilizando div
+    let nodeContent = document.createElement("div");
+    nodeContent.classList.add("small");
+    nodeContent.style.cssText = "width: 100%; padding: 0 1rem";
 
-        // Criando e estilizando div
-        let nodeDivName = document.createElement("div");
-        nodeDivName.classList.add("d-flex", "justify-content-between");
+    // Criando e estilizando button group
+    let nodeButtonGroup = document.createElement("div");
+    nodeButtonGroup.style.cssText =
+      "gap: 0.5rem; display: flex; align-items: baseline; width: 92px";
 
-        // Criando e estilizando strong do nome
-        let nodeName = document.createElement("strong");
-        let createTextName = document.createTextNode(element.name);
-        nodeName.classList.add("text-gray-dark");
-        nodeName.appendChild(createTextName);
+    // Criando e estilizando botão de deletar
+    let nodeButtonDelete = document.createElement("button");
+    nodeButtonDelete.classList.add("btn", "btn-outline-primary");
+    nodeButtonDelete.onclick = () => deleteItem(element);
 
-        // Criando e estilizando link de deletar
-        let nodeDeleteLink = document.createElement("a");
-        let createDeleteLink = document.createTextNode("Deletar");
-        nodeDeleteLink.href = `javascript:deleteItem(${element.id})`;
-        nodeDeleteLink.appendChild(createDeleteLink);
+    let iconDelete = document.createElement("i");
+    iconDelete.classList.add("fa-solid", "fa-trash");
+    iconDelete.style.cssText = "width: 16px; height: 16px";
 
-        // Criando e estilizando span do email
-        let nodeEmail = document.createElement("span");
-        let createTextEmail = document.createTextNode(element.email);
-        nodeEmail.classList.add("d-block");
-        nodeEmail.appendChild(createTextEmail);
+    nodeButtonDelete.appendChild(iconDelete);
 
-        // Criando e estilizando span da senha
-        let nodePassword = document.createElement("span");
-        let createTextPassword = document.createTextNode(element.password);
-        nodePassword.classList.add("d-block");
-        nodePassword.appendChild(createTextPassword);
+    // Criando e estilizando botão de editar
+    let nodeButtonEdit = document.createElement("button");
+    nodeButtonEdit.classList.add("btn", "btn-outline-primary");
+    nodeButtonEdit.onclick = () => editItem(element);
 
-        // Incorporando elementos
-        nodeDivName.appendChild(nodeName);
-        nodeDivName.appendChild(nodeDeleteLink);
+    let iconEdit = document.createElement("i");
+    iconEdit.classList.add("fa-solid", "fa-pen");
+    iconEdit.style.cssText = "width: 16px; height: 16px";
 
-        nodeDiv.appendChild(nodeDivName);
-        nodeDiv.appendChild(nodeEmail);
-        nodeDiv.appendChild(nodePassword);
+    nodeButtonEdit.appendChild(iconEdit);
 
-        nodeCard.appendChild(nodeSquare);
-        nodeCard.appendChild(nodeDiv);
+    // Criando e estilizando strong do nome
+    let nodeName = document.createElement("strong");
+    let createTextName = document.createTextNode(element.name);
+    nodeName.classList.add("text-gray-dark");
+    nodeName.appendChild(createTextName);
 
-        selectorDiv.appendChild(nodeCard);
+    // Criando e estilizando span do email
+    let nodeEmail = document.createElement("span");
+    let createTextEmail = document.createTextNode(element.email);
+    nodeEmail.classList.add("d-block");
+    nodeEmail.appendChild(createTextEmail);
+
+    // Criando e estilizando span da descrição
+    let nodeComment = document.createElement("span");
+    let createTextComment = document.createTextNode(element.comment);
+    nodeComment.classList.add("d-block", "max-two-lines");
+    nodeComment.appendChild(createTextComment);
+
+    // Incorporando elementos
+    nodeContent.appendChild(nodeName);
+    nodeContent.appendChild(nodeEmail);
+    nodeContent.appendChild(nodeComment);
+
+    nodeButtonGroup.appendChild(nodeButtonDelete);
+    nodeButtonGroup.appendChild(nodeButtonEdit);
+
+    nodeCard.appendChild(nodeSquare);
+    nodeCard.appendChild(nodeContent);
+    nodeCard.appendChild(nodeButtonGroup);
+
+    cardGroupSelector.appendChild(nodeCard);
+  });
+}
+
+function handleSubmit(thisForm) {
+  const { inputName, inputEmail, inputComment } = thisForm;
+
+  const card = {
+    id: Math.random().toString(16).slice(2),
+    name: inputName.value,
+    email: inputEmail.value,
+    comment: inputComment.value,
+  };
+
+  if (selected !== undefined) {
+    const index = storage.findIndex((value) => {
+      return value.id === selected;
     });
 
-    console.log(arr_storage);
+    storage[index] = card;
+
+    selected = undefined;
+  } else {
+    storage.push(card);
+  }
+
+  handleItemsList();
 }
 
-function createItem(thisForm) {
-    const input_name = thisForm.inputName.value;
-    const input_email = thisForm.inputEmail.value;
-    const input_password = thisForm.inputPassword.value;
+function editItem(item) {
+  const name = document.getElementById("inputName");
+  const email = document.getElementById("inputEmail");
+  const comment = document.getElementById("inputComment");
 
-    let arr_form = {
-        "id": arr_storage.length + 1,
-        "name": input_name,
-        "email": input_email,
-        "password": input_password,
-    };
+  const index = storage.findIndex((value) => {
+    return value.id === item.id;
+  });
 
-    arr_storage.push(arr_form);
+  name.value = storage[index].name;
+  email.value = storage[index].email;
+  comment.value = storage[index].comment;
 
-    handleItemsList();
+  selected = item.id;
+
+  handleItemsList();
 }
 
-function deleteItem(itenId) {
-    delete arr_storage[itenId - 1];
+function deleteItem(item) {
+  const index = storage.findIndex((value) => {
+    return value.id === item.id;
+  });
 
-    handleItemsList();
+  delete storage[index];
+
+  handleItemsList();
 }

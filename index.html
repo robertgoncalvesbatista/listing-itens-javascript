@@ -14,50 +14,60 @@
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
     <link rel="stylesheet" href="./public/css/bootstrap.rtl.css">
     <link rel="stylesheet" href="./public/css/bootstrap.rtl.min.css">
+    <link rel="stylesheet" href="./public/css/reset.css">
 
     <title>Lista de Itens</title>
 </head>
 
 <body class="body-gradient">
-
-    <!-- Formulário -->
-    <div class="d-flex container">
-        <div class="container px-4 py-5">
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="container row mx-auto ">
+        <!-- Formulário -->
+        <div class="col-12 col-md-6 my-4">
+            <div class="p-4 bg-body rounded shadow-sm">
                 <h4 class="border-bottom pb-2 mb-4 text-dark">Formulário</h4>
 
-                <form action="javascript:createItem(this)" method="post">
+                <form action="javascript:handleSubmit(this)" method="post">
                     <div class="mb-3 row">
-                        <label for="inputName" class="col-sm-2 col-form-label text-dark">Nome</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputName" placeholder="Digite o seu nome...">
+                        <label for="inputName" class="col-form-label text-dark">Nome</label>
+
+                        <div>
+                            <input type="text" class="form-control" aria-label="Name" required id="inputName"
+                                placeholder="Digite o seu nome">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label text-dark">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail"
-                                placeholder="Digite o seu email...">
+                        <label for="inputEmail" class="col-form-label text-dark">Email</label>
+
+                        <div>
+                            <input type="email" class="form-control" aria-label="Email" required id="inputEmail"
+                                placeholder="Digite o seu email">
                         </div>
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label text-dark">Senha</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword"
-                                placeholder="Digite a sua senha...">
+                        <label for="inputComment" class="col-form-label text-dark">Comentário</label>
+
+                        <div>
+                            <textarea class="form-control" aria-label="Comment" required id="inputComment"
+                                placeholder="Digite seu comentário"></textarea>
                         </div>
                     </div>
 
-                    <button class="btn btn-secondary" type="submit">Enviar</button>
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <button class="btn btn-outline-secondary" style="padding-right: 1.5rem; padding-left: 1.5rem;"
+                            type="reset">Limpar</button>
+
+                        <button class="btn btn-secondary" style="padding-right: 1.5rem; padding-left: 1.5rem;"
+                            type="submit">Salvar</button>
+                    </div>
                 </form>
             </div>
         </div>
 
-        <!-- Formulário -->
-        <div class="container px-4 py-5" id="icon-grid">
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- Cards -->
+        <div class="col-12 col-md-6 my-4" id="icon-grid">
+            <div class="p-4 bg-body rounded shadow-sm">
                 <h4 class="border-bottom pb-2 mb-0 text-dark">Listagem</h4>
 
                 <div id="cardGroup"></div>
@@ -69,6 +79,7 @@
     <script async src="./public/js/app.js"></script>
     <script async src="./public/js/bootstrap.bundle.js"></script>
     <script async src="./public/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/65f7a3e6fa.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
