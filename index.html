@@ -24,9 +24,9 @@
         <!-- Formulário -->
         <div class="col-12 col-md-6 my-4">
             <div class="p-4 bg-body rounded shadow-sm">
-                <h4 class="border-bottom pb-2 mb-4 text-dark">Formulário</h4>
+                <h4 class="border-bottom pb-2 mb-4 text-dark" id="title">Formulário</h4>
 
-                <form action="javascript:handleSubmit(this)" method="post">
+                <form id="commentForm">
                     <div class="mb-3 row">
                         <label for="inputName" class="col-form-label text-dark">Nome</label>
 
@@ -46,10 +46,10 @@
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="inputComment" class="col-form-label text-dark">Comentário</label>
+                        <label for="inputDescription" class="col-form-label text-dark">Comentário</label>
 
                         <div>
-                            <textarea class="form-control" aria-label="Comment" required id="inputComment"
+                            <textarea class="form-control" aria-label="Description" required id="inputDescription"
                                 placeholder="Digite seu comentário"></textarea>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
     </div>
 
     <!-- Scripts -->
-    <script async src="./public/js/app.js"></script>
+    <script async src="./public/js/comments.js"></script>
     <script async src="./public/js/bootstrap.bundle.js"></script>
     <script async src="./public/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/65f7a3e6fa.js" crossorigin="anonymous"></script>
